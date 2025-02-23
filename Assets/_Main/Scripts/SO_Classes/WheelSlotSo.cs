@@ -6,6 +6,11 @@ namespace _Main.Scripts.SO_Classes
     public class WheelSlotSo : ScriptableObject
     {
         [field: SerializeField] public Sprite SlotIcon { get; private set; }
+        [field: SerializeField] public int RewardValue { get; private set; }
+
+        
+        //Green  box , yellow box, red box, blue box, purple box, orange box, pink box, light blue box
+        // Reward values, reward icons, reward names
         
     }
 }

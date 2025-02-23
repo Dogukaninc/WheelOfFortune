@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85314b835aa542068b5a002e33d76ce5, type: 3}
-  m_Name: Wheel_Slot_Data
+  m_Name: Wheel_slot_case_standart_x300
   m_EditorClassIdentifier: 
-  <SlotIcon>k__BackingField: {fileID: 21300000, guid: d1558b0b001c7d0439e0267aafb28a1c,
+  <SlotIcon>k__BackingField: {fileID: 21300000, guid: f9d87cbdde2959b419848976f8c8e6ec,
     type: 3}
+  <RewardValue>k__BackingField: 300
