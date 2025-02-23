@@ -9,9 +9,13 @@ namespace _Main.Scripts.FortuneWheel
     {
         [SerializeField] private float rotationDuration;
         [SerializeField] private float slotYPosOffset;
+        [SerializeField] private int desiredSlotCount;
+
 
         [SerializeField] private int initialRotationCount;
         [SerializeField] private RectTransform fortuneWheelRectTransform;
+
+        [SerializeField] private WheelSlot slotPrefab;
 
         [SerializeField] private List<WheelSlot> wheelSlots;
         [SerializeField] private Transform slotsParent;
@@ -30,33 +34,45 @@ namespace _Main.Scripts.FortuneWheel
         {
             InitializeSlots();
             _sequence = DOTween.Sequence();
-            _wheelSlotCount = wheelSlots.Count;
             _initialRotationAngle = initialRotationCount * 360;
         }
 
-        private void InitializeSlots()
+        [Button]
+        private void InitializeSlots(float divider = 8)
         {
             float width = fortuneWheelRectTransform.rect.width;
             float height = fortuneWheelRectTransform.rect.height;
+            slotYPosOffset = height / divider;
             _fortuneWheelRadius = (Mathf.Min(width, height) * 0.5f) - slotYPosOffset;
 
-            for (int i = 0; i < slotsParent.childCount; i++)
+            for (int i = 0; i < desiredSlotCount; i++)
             {
-                var slot = slotsParent.GetChild(i).GetComponent<WheelSlot>();
-                wheelSlots.Add(slot);
-                float angle = i * 45;
+                var slot = Instantiate(slotPrefab, slotsParent);
+                float angle = i * 360 / desiredSlotCount;
                 float rad = angle * Mathf.Deg2Rad;
-
                 Vector3 pos = new Vector3(Mathf.Cos(rad) * _fortuneWheelRadius, Mathf.Sin(rad) * _fortuneWheelRadius, 0f);
-                slot.GetComponent<RectTransform>().localPosition = pos;
-                slot.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
+                var slotRect = slot.GetComponent<RectTransform>();
+                slotRect.localPosition = pos;
+                slotRect.rotation = Quaternion.Euler(0, 0, angle - 90f);
+                var slotScaleFactor = height / slotRect.rect.height;
+                slotRect.localScale = Vector3.one * (slotScaleFactor / 10);
+                Debug.Log(slotRect.rect.height);
+
+                if (wheelSlots.Contains(slot))
+                {
+                    continue;
+                }
+
+                wheelSlots.Add(slot);
             }
+
+            _wheelSlotCount = wheelSlots.Count;
         }
 
         [Button]
         private void SpinWheel()
         {
-            if (_sequence.IsActive() && _sequence.IsPlaying()) return;
+            if (_sequence.IsActive() || _sequence.IsPlaying()) return;
             _sequence?.Kill();
             _sequence = DOTween.Sequence();
             var targetRotationAngle = CalculateTargetRotationAngle();
@@ -68,13 +84,14 @@ namespace _Main.Scripts.FortuneWheel
                 deltaAngle += 360f;
             }
 
-            float totalRotationAngle = _initialRotationAngle * 360f + deltaAngle;
+            float totalRotationAngle = deltaAngle;
             float finalRotation = currentAngle + totalRotationAngle;
             var endRotationAngle = new Vector3(0, 0, finalRotation);
-            
-            _sequence.Append(fortuneWheelRectTransform.DORotate(endRotationAngle, rotationDuration, RotateMode.FastBeyond360).SetEase(Ease.Linear));
-            
-            
+
+            _sequence.SetEase(Ease.InOutQuad);
+            // _sequence.Append(fortuneWheelRectTransform.DORotate(endRotationAngle, rotationDuration, RotateMode.FastBeyond360).SetLoops(5, LoopType.Incremental));
+            //todo append ile desired slot rotasyonuna kadar son kez döndür
+            _sequence.Append(fortuneWheelRectTransform.DORotate(new Vector3(0, 0, 1) * 360 * 5, rotationDuration, RotateMode.FastBeyond360));
         }
 
         private float CalculateTargetRotationAngle()

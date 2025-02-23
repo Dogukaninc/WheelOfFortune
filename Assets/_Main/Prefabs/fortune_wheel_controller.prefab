@@ -26,7 +26,7 @@ RectTransform:
   m_GameObject: {fileID: 8351168712439481826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.57, y: 0.57, z: 0.57}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8351168713509576027}
@@ -51,11 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d27747e38a9ca4c95e597727405be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 140
   rotationDuration: 1
-  slotYPosOffset: 50
+  slotYPosOffset: 66.25
   initialRotationCount: 2
   fortuneWheelRectTransform: {fileID: 8351168713509576027}
+  slotPrefab: {fileID: 6774165577695406083, guid: 3dd979aff401e10479a8a8bac09fbee8,
+    type: 3}
   wheelSlots: []
   slotsParent: {fileID: 8351168713950272256}
 --- !u!1001 &2234189339693947157
@@ -239,12 +240,12 @@ PrefabInstance:
     - target: {fileID: 3154791223748021097, guid: 42198a3fd948f2c4eac24de6e43a660f,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 41
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 3154791223748021097, guid: 42198a3fd948f2c4eac24de6e43a660f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 56
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3154791223748021097, guid: 42198a3fd948f2c4eac24de6e43a660f,
         type: 3}
