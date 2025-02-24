@@ -51,14 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d27747e38a9ca4c95e597727405be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationDuration: 1
+  rotationDuration: 3
   slotYPosOffset: 66.25
-  initialRotationCount: 2
-  fortuneWheelRectTransform: {fileID: 8351168713509576027}
-  slotPrefab: {fileID: 6774165577695406083, guid: 3dd979aff401e10479a8a8bac09fbee8,
-    type: 3}
+  desiredSlotCount: 8
+  initialRotationCount: 5
   wheelSlots: []
+  fortuneWheelRectTransform: {fileID: 8351168713509576027}
   slotsParent: {fileID: 8351168713950272256}
+  spinButton: {fileID: 0}
+  spinningEase: 22
 --- !u!1001 &2234189339693947157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 3154791223748021096, guid: 42198a3fd948f2c4eac24de6e43a660f,
         type: 3}
       propertyPath: m_Name
-      value: ui_image_Indicator
+      value: ui_image_wheel_Indicator
       objectReference: {fileID: 0}
     - target: {fileID: 3154791223748021097, guid: 42198a3fd948f2c4eac24de6e43a660f,
         type: 3}

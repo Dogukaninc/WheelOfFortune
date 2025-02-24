@@ -14,21 +14,11 @@ namespace _Main.Scripts.FortuneWheel
         [SerializeField] private TextMeshProUGUI slotRewardValueText;
         [SerializeField] private Image slotIconImage;
 
-        private void Awake()
-        {
-            Initialize();
-        }
-
-        private void Initialize()
+        internal void Initialize()
         {
             SlotIndex = transform.GetSiblingIndex();
             slotIconImage.sprite = wheelSlotSo.SlotIcon;
             slotRewardValueText.text = "x" + wheelSlotSo.RewardValue.ToString();
-        }
-
-        private void OnValidate()
-        {
-            Initialize();
         }
     }
 }
