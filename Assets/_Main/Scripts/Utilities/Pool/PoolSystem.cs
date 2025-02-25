@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
-using Utilities.Pool;
 
-namespace _Main.Scripts.Utilities.Pool
+namespace CaseDemo.Scripts.Pool
 {
     public class PoolSystem : SingletonMonoBehaviour<PoolSystem>
     {

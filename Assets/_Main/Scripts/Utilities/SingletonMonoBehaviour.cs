@@ -4,14 +4,14 @@ namespace Utilities
 {
     public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        private static T _instance;
 
-        public static T Instance => instance;
+        public static T Instance => _instance;
 
         protected virtual void Awake()
         {
-            if (instance == null)
-                instance = this as T;
+            if (_instance == null)
+                _instance = this as T;
             else
             {
                 Destroy(gameObject);

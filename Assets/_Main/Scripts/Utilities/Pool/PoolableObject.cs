@@ -1,7 +1,6 @@
-using _Main.Scripts.Utilities.Pool;
 using UnityEngine;
 
-namespace Utilities.Pool
+namespace CaseDemo.Scripts.Pool
 {
     public class PoolableObject : MonoBehaviour
     {

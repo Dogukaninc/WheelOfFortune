@@ -1,34 +1,33 @@
 using System.Collections.Generic;
-using _Main.Scripts.Utilities.Pool;
+using CaseDemo.Scripts.Pool;
+using CaseDemo.Scripts.SO_Classes;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace _Main.Scripts.FortuneWheel
+namespace CaseDemo.Scripts.FortuneWheel
 {
     public class FortuneWheelController : MonoBehaviour
     {
+        // [ReadOnly] public bool IsSpinning { get; set; }
         [SerializeField] private float rotationDuration;
         [SerializeField] private float slotYPosOffset;
         [SerializeField] private int desiredSlotCount;
         [SerializeField] private int initialRotationCount;
 
+        [SerializeField] private WheelSlotDataHolderSo wheelSlotDataHolderSo;
         [SerializeField] private List<WheelSlot> wheelSlots; // todo: odin'den custom inspector yapılabilir
         [SerializeField] private RectTransform fortuneWheelRectTransform;
         [SerializeField] private Transform slotsParent;
         [SerializeField] private Button spinButton;
         [SerializeField] private Ease spinningEase;
+        [SerializeField] private IndicatorSway indicatorSway;
 
         private Sequence _sequence;
         private int _wheelSlotCount;
         private float _fortuneWheelRadius;
-
-        private void Awake()
-        {
-            Initialize();
-        }
 
         private void OnEnable()
         {
@@ -38,6 +37,11 @@ namespace _Main.Scripts.FortuneWheel
         private void OnDisable()
         {
             spinButton.onClick.AddListener(SpinWheel);
+        }
+
+        private void Start()
+        {
+            Initialize();
         }
 
         private void Initialize()
@@ -59,9 +63,11 @@ namespace _Main.Scripts.FortuneWheel
                 var slot = PoolSystem.Instance.SpawnGameObject("WheelSlot");
                 slot.transform.SetParent(slotsParent);
                 var wheelSlot = slot.GetComponent<WheelSlot>();
+                SelectRandomSlotConfig(wheelSlot);
+                wheelSlot.SlotIndex = i;
                 wheelSlot.Initialize();
 
-                float angle = i * 360 / desiredSlotCount;
+                float angle = i * (360 / desiredSlotCount) + 90f;
                 float rad = angle * Mathf.Deg2Rad;
                 Vector3 pos = new Vector3(Mathf.Cos(rad) * _fortuneWheelRadius, Mathf.Sin(rad) * _fortuneWheelRadius, 0f);
 
@@ -80,6 +86,12 @@ namespace _Main.Scripts.FortuneWheel
             _wheelSlotCount = wheelSlots.Count;
         }
 
+        private void SelectRandomSlotConfig(WheelSlot wheelSlot)
+        {
+            var slotConfig = wheelSlotDataHolderSo.AllWheelSlotData[Random.Range(0, wheelSlotDataHolderSo.AllWheelSlotData.Count)];
+            wheelSlot.wheelSlotSo = slotConfig;
+        }
+
         [Button]
         private void SpinWheel()
         {
@@ -87,21 +99,15 @@ namespace _Main.Scripts.FortuneWheel
             _sequence?.Kill();
             _sequence = DOTween.Sequence();
 
-            float currentAngle = fortuneWheelRectTransform.eulerAngles.z;
             float targetRotationAngle = CalculateTargetRotationAngle();
-
-            float deltaAngle = targetRotationAngle - currentAngle;
-            
-
-            float finalRotationAngle = currentAngle + (360f * initialRotationCount) + deltaAngle;
+            float initialRotation = (360f * initialRotationCount);
 
             _sequence.Append(
                 fortuneWheelRectTransform
-                    .DORotate(new Vector3(0, 0, finalRotationAngle), rotationDuration, RotateMode.FastBeyond360)
+                    .DORotate(new Vector3(0, 0, initialRotation + targetRotationAngle), rotationDuration, RotateMode.FastBeyond360)
                     .SetEase(spinningEase)
             );
-            _sequence.Play();
-            
+            _sequence.OnUpdate(() => indicatorSway.IndicatorRoutine());
         }
 
         private float CalculateTargetRotationAngle()
@@ -109,10 +115,10 @@ namespace _Main.Scripts.FortuneWheel
             var targetSlot = SelectSlot();
             var targetSlotIndex = targetSlot.SlotIndex;
             var slotAngle = 360f / _wheelSlotCount;
-            var targetRotationAngle = (slotAngle * targetSlotIndex);
+            var targetRotationAngle = -slotAngle * targetSlotIndex;
 
             Debug.Log($"Target Slot Index: {targetSlotIndex} Target Rotation Angle: {targetRotationAngle}");
-            // Debug.Log("Reward Name:" + targetSlot.SlotRewardName);
+            Debug.Log("Reward Name:" + targetSlot.SlotRewardName);
             return targetRotationAngle;
         }
 
