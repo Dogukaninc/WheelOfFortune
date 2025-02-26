@@ -4,6 +4,7 @@ using CaseDemo.Scripts.SO_Classes;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -23,7 +24,7 @@ namespace CaseDemo.Scripts.FortuneWheel
         [SerializeField] private Transform slotsParent;
         [SerializeField] private Button spinButton;
         [SerializeField] private Ease spinningEase;
-        [SerializeField] private IndicatorSway indicatorSway;
+        [FormerlySerializedAs("indicatorSway")] [SerializeField] private WheelIndicatorController wheelIndicatorController;
 
         private Sequence _sequence;
         private int _wheelSlotCount;
@@ -107,7 +108,7 @@ namespace CaseDemo.Scripts.FortuneWheel
                     .DORotate(new Vector3(0, 0, initialRotation + targetRotationAngle), rotationDuration, RotateMode.FastBeyond360)
                     .SetEase(spinningEase)
             );
-            _sequence.OnUpdate(() => indicatorSway.IndicatorRoutine());
+            _sequence.OnUpdate(() => wheelIndicatorController.IndicatorRoutine());
         }
 
         private float CalculateTargetRotationAngle()

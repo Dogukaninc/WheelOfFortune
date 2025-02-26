@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace CaseDemo.Scripts.FortuneWheel
 {
-    public class IndicatorSway : MonoBehaviour
+    public class WheelIndicatorController : MonoBehaviour
     {
         [SerializeField] private RectTransform fortuneWheelRectTransform;
         [SerializeField] private RectTransform indicatorTransform;
