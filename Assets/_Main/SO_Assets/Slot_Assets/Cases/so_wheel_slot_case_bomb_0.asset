@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85314b835aa542068b5a002e33d76ce5, type: 3}
+  m_Name: so_wheel_slot_case_bomb_0
+  m_EditorClassIdentifier: 
+  <SlotIcon>k__BackingField: {fileID: 21300000, guid: 5b74ccdd2eb5fbd48b38204d341fd66d,
+    type: 3}
+  <SlotRewardInfoValue>k__BackingField: 10
+  <PrizeCardSo>k__BackingField: {fileID: 11400000, guid: 047916866c3d470469dd886a7a5b3e64,
+    type: 2}
+  <UnitType>k__BackingField: 5

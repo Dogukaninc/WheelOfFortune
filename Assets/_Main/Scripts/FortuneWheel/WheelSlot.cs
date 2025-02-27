@@ -10,15 +10,16 @@ namespace CaseDemo.Scripts.FortuneWheel
     {
         [ReadOnly] public WheelSlotSo wheelSlotSo;
         [field: SerializeField] public int SlotIndex { get; set; }
-        [field: SerializeField] public string SlotRewardName { get; private set; }
 
         [SerializeField] private TextMeshProUGUI slotRewardValueText;
         [SerializeField] private Image slotIconImage;
 
         public void Initialize()
         {
+            wheelSlotSo.SelectRandomCard();
             slotIconImage.sprite = wheelSlotSo.SlotIcon;
-            slotRewardValueText.text = "x" + wheelSlotSo.RewardValue.ToString();
+            slotRewardValueText.text = "x" + wheelSlotSo.SlotRewardInfoValue.ToString();
         }
+        
     }
 }

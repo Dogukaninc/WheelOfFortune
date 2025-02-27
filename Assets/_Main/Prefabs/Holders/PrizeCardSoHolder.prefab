@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9114327612867576400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9114327612867576401}
+  - component: {fileID: 9114327612867576414}
+  m_Layer: 0
+  m_Name: PrizeCardSoHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9114327612867576401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114327612867576400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9114327612867576414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114327612867576400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92ea2f1496641dd84995f44d2f94ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PrizeCardSos>k__BackingField:
+  - {fileID: 11400000, guid: 0333b8e64b38c774fa3b1cd334740c9f, type: 2}
+  - {fileID: 11400000, guid: 31531c9b55d112347bba80f4b982d6ec, type: 2}
+  - {fileID: 11400000, guid: 692f0bc78026be14f86cac3dfbcaa2f8, type: 2}
+  - {fileID: 11400000, guid: 64893c0336beda6449565f1efe8981d3, type: 2}
+  - {fileID: 11400000, guid: c8c2ced114a110d45ae1eda41b3c0d46, type: 2}
+  - {fileID: 11400000, guid: 047916866c3d470469dd886a7a5b3e64, type: 2}
+  - {fileID: 11400000, guid: 15109f9de7cd1e44e83afe74429a283a, type: 2}
+  - {fileID: 11400000, guid: 126d8231d3693544ea91e9c5b5fa0c7b, type: 2}
+  - {fileID: 11400000, guid: e64a37ac511e0414ab9eb6add10639ab, type: 2}
+  - {fileID: 11400000, guid: 5a21c4ad8beb9dc4b8ed9ee4ecd18a38, type: 2}
+  - {fileID: 11400000, guid: 49551b7498b676a41892ba36fa8d41d3, type: 2}
+  - {fileID: 11400000, guid: f50210b8a3c77d9479bb313c329e31bc, type: 2}
+  - {fileID: 11400000, guid: e6406b2a8689da04ba2105d3812a6cae, type: 2}
+  - {fileID: 11400000, guid: a940b363240f61a4b98e34f9e3a97518, type: 2}

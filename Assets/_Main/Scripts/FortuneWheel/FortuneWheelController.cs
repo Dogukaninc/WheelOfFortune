@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Assets._Main.Scripts.Utilities;
+using CaseDemo.Scripts.CardHolder;
 using CaseDemo.Scripts.Pool;
 using CaseDemo.Scripts.SO_Classes;
+using CaseDemo.Scripts.SO_Classes.SettingsSoClasses;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -12,23 +14,25 @@ namespace CaseDemo.Scripts.FortuneWheel
 {
     public class FortuneWheelController : MonoBehaviour
     {
-        // [ReadOnly] public bool IsSpinning { get; set; }
-        [SerializeField] private float rotationDuration;
-        [SerializeField] private float slotYPosOffset;
-        [SerializeField] private int desiredSlotCount;
-        [SerializeField] private int initialRotationCount;
+        [SerializeField] private CardHolderController cardHolderController;
+        [SerializeField] private FortuneWheelConfig fortuneWheelConfig;
 
         [SerializeField] private WheelSlotDataHolderSo wheelSlotDataHolderSo;
-        [SerializeField] private List<WheelSlot> wheelSlots; // todo: odin'den custom inspector yapılabilir
+        [SerializeField] private List<WheelSlot> wheelSlots;
         [SerializeField] private RectTransform fortuneWheelRectTransform;
         [SerializeField] private Transform slotsParent;
         [SerializeField] private Button spinButton;
         [SerializeField] private Ease spinningEase;
-        [FormerlySerializedAs("indicatorSway")] [SerializeField] private WheelIndicatorController wheelIndicatorController;
+        [SerializeField] private WheelIndicatorController wheelIndicatorController;
 
         private Sequence _sequence;
+        private WheelSlot _selectedSlot;
         private int _wheelSlotCount;
         private float _fortuneWheelRadius;
+        private float _rotationDuration;
+        private float _slotYPosOffset;
+        private int _desiredSlotCount;
+        private int _initialRotationCount;
 
         private void OnEnable()
         {
@@ -47,19 +51,32 @@ namespace CaseDemo.Scripts.FortuneWheel
 
         private void Initialize()
         {
-            InitializeSlots();
             _sequence = DOTween.Sequence();
+            _rotationDuration = fortuneWheelConfig.RotationDuration;
+            _slotYPosOffset = fortuneWheelConfig.SlotYPosOffset;
+            _desiredSlotCount = fortuneWheelConfig.DesiredSlotCount;
+            _initialRotationCount = fortuneWheelConfig.InitialRotationCount;
+
+            InitializeSlots();
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                ClosePrizeCard();
+            }
         }
 
         [Button]
-        private void InitializeSlots(float divider = 5) // todo -> divider değerini configurable yap
+        private void InitializeSlots(float divider = 5)
         {
             float width = fortuneWheelRectTransform.rect.width;
             float height = fortuneWheelRectTransform.rect.height;
-            slotYPosOffset = height / divider;
-            _fortuneWheelRadius = (Mathf.Min(width, height) * 0.5f) - slotYPosOffset;
+            _slotYPosOffset = height / divider;
+            _fortuneWheelRadius = (Mathf.Min(width, height) * 0.5f) - _slotYPosOffset;
 
-            for (int i = 0; i < desiredSlotCount; i++) // todo slotların so'ları rastgele atanacak ve initialize edilecek
+            for (int i = 0; i < _desiredSlotCount; i++)
             {
                 var slot = PoolSystem.Instance.SpawnGameObject("WheelSlot");
                 slot.transform.SetParent(slotsParent);
@@ -68,7 +85,7 @@ namespace CaseDemo.Scripts.FortuneWheel
                 wheelSlot.SlotIndex = i;
                 wheelSlot.Initialize();
 
-                float angle = i * (360 / desiredSlotCount) + 90f;
+                float angle = i * (360 / _desiredSlotCount) + 90f;
                 float rad = angle * Mathf.Deg2Rad;
                 Vector3 pos = new Vector3(Mathf.Cos(rad) * _fortuneWheelRadius, Mathf.Sin(rad) * _fortuneWheelRadius, 0f);
 
@@ -77,20 +94,12 @@ namespace CaseDemo.Scripts.FortuneWheel
                 slotRect.rotation = Quaternion.Euler(0, 0, angle - 90f);
                 var slotScaleFactor = height / slotRect.rect.height;
                 slotRect.localScale = Vector3.one * (slotScaleFactor / 10);
-                Debug.Log(slotRect.rect.height);
 
                 if (wheelSlots.Contains(wheelSlot)) continue;
-
                 wheelSlots.Add(wheelSlot);
             }
 
             _wheelSlotCount = wheelSlots.Count;
-        }
-
-        private void SelectRandomSlotConfig(WheelSlot wheelSlot)
-        {
-            var slotConfig = wheelSlotDataHolderSo.AllWheelSlotData[Random.Range(0, wheelSlotDataHolderSo.AllWheelSlotData.Count)];
-            wheelSlot.wheelSlotSo = slotConfig;
         }
 
         [Button]
@@ -101,33 +110,52 @@ namespace CaseDemo.Scripts.FortuneWheel
             _sequence = DOTween.Sequence();
 
             float targetRotationAngle = CalculateTargetRotationAngle();
-            float initialRotation = (360f * initialRotationCount);
+            float initialRotation = (360f * _initialRotationCount);
 
             _sequence.Append(
                 fortuneWheelRectTransform
-                    .DORotate(new Vector3(0, 0, initialRotation + targetRotationAngle), rotationDuration, RotateMode.FastBeyond360)
+                    .DORotate(new Vector3(0, 0, initialRotation + targetRotationAngle), _rotationDuration, RotateMode.FastBeyond360)
                     .SetEase(spinningEase)
             );
             _sequence.OnUpdate(() => wheelIndicatorController.IndicatorRoutine());
+            _sequence.AppendCallback(() => GeneralEvents.CallInitializeDisplayElement?.Invoke(_selectedSlot.wheelSlotSo.SlotIcon, 0, _selectedSlot.wheelSlotSo.UnitType));
+            _sequence.AppendCallback(() => GeneralEvents.OnDisplayElementUpdated?.Invoke(_selectedSlot.wheelSlotSo.UnitType, _selectedSlot.wheelSlotSo.SlotRewardInfoValue));
+            _sequence.AppendCallback(() => ShowPrizeCard(_selectedSlot.wheelSlotSo));
         }
 
         private float CalculateTargetRotationAngle()
         {
-            var targetSlot = SelectSlot();
-            var targetSlotIndex = targetSlot.SlotIndex;
+            _selectedSlot = SelectSlot();
+            var targetSlotIndex = _selectedSlot.SlotIndex;
             var slotAngle = 360f / _wheelSlotCount;
             var targetRotationAngle = -slotAngle * targetSlotIndex;
-
-            Debug.Log($"Target Slot Index: {targetSlotIndex} Target Rotation Angle: {targetRotationAngle}");
-            Debug.Log("Reward Name:" + targetSlot.SlotRewardName);
             return targetRotationAngle;
         }
 
-        private WheelSlot SelectSlot() //todo: rastgeleliği arttıran bir fonksiyon ya da ihtimali konfigure edilebilir yap.
+        private void ShowPrizeCard(WheelSlotSo slotSo)
+        {
+            // GeneralEvents.OnDisplayElementUpdated?.Invoke(slotSo.UnitType, slotSo.PrizeCardSo.CardRewardValue);
+
+            cardHolderController.InitializeCard(slotSo.PrizeCardSo.CardItemIcon, slotSo.PrizeCardSo.CardHeaderText,
+                slotSo.PrizeCardSo.CardRewardValue.ToString(), slotSo.UnitType);
+            cardHolderController.CardMoveUpAnimationSequnce();
+        }
+
+        private void ClosePrizeCard()
+        {
+            cardHolderController.CardMoveDownAnimationSequnce(cardHolderController.CardUnitType);
+        }
+
+        private WheelSlot SelectSlot()
         {
             var targetIndex = Random.Range(0, _wheelSlotCount);
-            Debug.Log("Target Index:" + targetIndex);
             return wheelSlots.Find(s => s.SlotIndex == targetIndex);
+        }
+
+        private void SelectRandomSlotConfig(WheelSlot wheelSlot)
+        {
+            var slotConfig = wheelSlotDataHolderSo.AllWheelSlotData[Random.Range(0, wheelSlotDataHolderSo.AllWheelSlotData.Count)];
+            wheelSlot.wheelSlotSo = slotConfig;
         }
     }
 }
