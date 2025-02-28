@@ -1396,6 +1396,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7135492661072174784, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661072174784, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661072174784, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661072174784, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661708857441, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661708857441, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661708857441, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135492661708857441, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7135492662847521283, guid: d7b04a4b89f4fdd40b3c5173c26231f4,
         type: 3}
       propertyPath: cardHolderController

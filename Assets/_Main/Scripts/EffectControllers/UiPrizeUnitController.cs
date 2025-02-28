@@ -38,6 +38,7 @@ namespace CaseDemo.Scripts.EffectControllers
         private void ResetUnit()
         {
             unitImage.sprite = null;
+            transform.localScale = new Vector3(0.28f, 0.28f, 0.28f);
             gameObject.SetActive(false);
         }
     }
