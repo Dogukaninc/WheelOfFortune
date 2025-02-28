@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8351168712439481825}
   - component: {fileID: 8351168712439481824}
+  - component: {fileID: 1755110264}
+  - component: {fileID: 4313397584877602603}
   m_Layer: 5
   m_Name: fortune_wheel_controller
   m_TagString: Untagged
@@ -53,7 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardHolderController: {fileID: 0}
-  fortuneWheelConfig: {fileID: 11400000, guid: 3bbe1f3d85411994b9fb1e1c86c9a54c, type: 2}
+  fortuneWheelConfigSo: {fileID: 11400000, guid: 3bbe1f3d85411994b9fb1e1c86c9a54c,
+    type: 2}
   wheelSlotDataHolderSo: {fileID: 11400000, guid: 97eed043c8bf40a41a257fad140ee79b,
     type: 2}
   wheelSlots: []
@@ -62,6 +65,37 @@ MonoBehaviour:
   spinButton: {fileID: 8351168712392208470}
   spinningEase: 6
   wheelIndicatorController: {fileID: 6353838372420997708}
+--- !u!114 &1755110264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351168712439481826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec898a135834494db72f6f32ddcb7b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fortuneWheelSequenceConfigSo: {fileID: 11400000, guid: bc2bff76959c15441906ceeea82676bb,
+    type: 2}
+--- !u!114 &4313397584877602603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351168712439481826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c71bd0f45f46b895ab8724006bf7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rouletteWheelImage: {fileID: 8351168713509576026}
+  rouletteIndicatorImage: {fileID: 8351168712172867383}
+  uiZoneBarController: {fileID: 0}
+  <FortuneWheelRendererConfigSo>k__BackingField: {fileID: 11400000, guid: 52c2c04667f09c34b9bc542dea0267de,
+    type: 2}
 --- !u!1001 &1951789886572320475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -318,6 +352,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbccb3e107b4100428c6ee72c9b43546, type: 3}
+--- !u!114 &8351168713509576026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7846432652351767631, guid: cbccb3e107b4100428c6ee72c9b43546,
+    type: 3}
+  m_PrefabInstance: {fileID: 2234189339693947157}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8351168713509576027 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7846432652351767630, guid: cbccb3e107b4100428c6ee72c9b43546,
@@ -471,3 +517,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6353838371616244833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8351168712172867383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3154791223748021078, guid: 42198a3fd948f2c4eac24de6e43a660f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6353838371616244833}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,5 +12,6 @@ namespace CaseDemo.Scripts.SO_Classes
         [field: SerializeField] public int CardRewardValue { get; private set; }
 
         [field: SerializeField] public UnitType UnitType { get; private set; }
+        
     }
 }

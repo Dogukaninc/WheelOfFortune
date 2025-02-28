@@ -52,8 +52,16 @@ MonoBehaviour:
   - tag: UiPrizeUnit
     prefab: {fileID: 4104799992923360821, guid: f0007edcaf2b7de4598fe3376265c7e3,
       type: 3}
-    size: 30
+    size: 50
   - tag: UiCardHolder
     prefab: {fileID: 1339493369369895830, guid: 9c5b2a1784819004fa1380f36d6aa1b7,
       type: 3}
     size: 10
+  - tag: UiPrizeDisplayElement
+    prefab: {fileID: 2576981839392403182, guid: 5c8815da723d99447be2f6df82b867dc,
+      type: 3}
+    size: 20
+  - tag: Zone
+    prefab: {fileID: 5393627570901174220, guid: 6232f180d9aa916459a264622b5172b7,
+      type: 3}
+    size: 120

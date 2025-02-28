@@ -13,5 +13,20 @@ namespace Assets._Main.Scripts.Utilities
         public static Action<Sprite, int, UnitType> CallInitializeDisplayElement;
 
         #endregion
+
+        #region Fortune Wheel Events
+
+        public static Action OnWheelMoveUp;
+        public static Action OnWheelMoveDown;
+        public static Action OnWheelRendererChange;
+
+        #endregion
+
+        #region Zone Bar Events
+
+        public static Action OnZoneChange;
+        
+
+        #endregion
     }
 }

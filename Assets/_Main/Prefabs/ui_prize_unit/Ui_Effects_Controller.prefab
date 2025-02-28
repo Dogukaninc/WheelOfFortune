@@ -45,11 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 312978eb322244908502c9e74baa3370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPrizeUnitSo: {fileID: 11400000, guid: ceae73c711359c840ba37a303f818485, type: 2}
+  spawnPrizeUnitConfigSo: {fileID: 11400000, guid: e87d9b9ce0ad6f14d85f632c9988dfbb,
+    type: 2}
+  <PrizeUnitSos>k__BackingField:
+  - {fileID: 11400000, guid: c27ef134b30a02e4e9676ec7fcc78acd, type: 2}
+  - {fileID: 11400000, guid: 91aedbd079864b74f9d2d973efef696b, type: 2}
+  - {fileID: 11400000, guid: ceae73c711359c840ba37a303f818485, type: 2}
+  - {fileID: 11400000, guid: 7bfbfa41a3bf06e4aa282fcc7e5d927b, type: 2}
+  - {fileID: 11400000, guid: 42a09ba19880d69438f481d8b95ef824, type: 2}
   prizeSpawnPoint: {fileID: 0}
   mainCanvas: {fileID: 0}
-  spawnPrizeUnitConfig: {fileID: 11400000, guid: e87d9b9ce0ad6f14d85f632c9988dfbb,
+  uiDefaultPrizeUnitSo: {fileID: 11400000, guid: c27ef134b30a02e4e9676ec7fcc78acd,
     type: 2}
+  spawnCount: 10
 --- !u!1 &6654060761122899577
 GameObject:
   m_ObjectHideFlags: 0

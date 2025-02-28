@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3114436b7b7f49b0b467ef48ba3b2428, type: 3}
   m_Name: so_spawn_prize_unit_config
   m_EditorClassIdentifier: 
-  <SpawnUnitRadius>k__BackingField: 50
-  <SpawningInterval>k__BackingField: 0.2
+  <SpawnUnitRadius>k__BackingField: 40
+  <SpawningInterval>k__BackingField: 0.05

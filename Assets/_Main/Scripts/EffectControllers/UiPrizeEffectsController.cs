@@ -4,7 +4,6 @@ using Assets._Main.Scripts.Utilities;
 using CaseDemo.Scripts.CollectedPrizeDisplayPanel;
 using CaseDemo.Scripts.Pool;
 using CaseDemo.Scripts.SO_Classes;
-using CaseDemo.Scripts.SO_Classes.SettingsSoClasses;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,7 +12,7 @@ namespace CaseDemo.Scripts.EffectControllers
 {
     public class UiPrizeEffectsController : MonoBehaviour
     {
-        [InlineEditor, SerializeField] private SpawnPrizeUnitConfig spawnPrizeUnitConfig;
+        [InlineEditor, SerializeField] private SpawnPrizeUnitConfigSo spawnPrizeUnitConfigSo;
         [field: SerializeField] public List<UiPrizeUnitSo> PrizeUnitSos { get; private set; }
 
         [SerializeField] private RectTransform prizeSpawnPoint;
@@ -21,7 +20,7 @@ namespace CaseDemo.Scripts.EffectControllers
         [SerializeField] private UiPrizeUnitSo uiDefaultPrizeUnitSo;
         [SerializeField] private int spawnCount;
 
-
+        private List<UiPrizeUnitController> _spawnedUnits = new();
         private CollectedPrizeHolderController _collectedPrizeDisplayPanel;
         private UnitType _unitType;
 
@@ -49,6 +48,8 @@ namespace CaseDemo.Scripts.EffectControllers
 
         IEnumerator SpawnUnitsRoutine(UnitType unitType)
         {
+            _spawnedUnits.Clear();
+
             for (int i = 0; i < spawnCount; i++)
             {
                 var unit = PoolSystem.Instance.SpawnGameObject("UiPrizeUnit");
@@ -56,19 +57,31 @@ namespace CaseDemo.Scripts.EffectControllers
                 var prizeUnitSo = SelectPrizeUnitSo(unitType);
                 prizeUnit.Initialize(prizeUnitSo.UnitSprite, prizeUnitSo.UnitType);
                 unit.transform.SetParent(mainCanvas);
+                
+                _spawnedUnits.Add(prizeUnit);
                 SetUnits(prizeUnit);
-                yield return new WaitForSeconds(spawnPrizeUnitConfig.SpawningInterval);
+                
+                yield return new WaitForSeconds(spawnPrizeUnitConfigSo.SpawningInterval);
+            }
+
+            MoveAllUnitsToTarget();
+        }
+
+        private void MoveAllUnitsToTarget()
+        {
+            foreach (var prizeUnit in _spawnedUnits)
+            {
+                var targetPosition = SelectTargetPrizePosition(prizeUnit);
+                prizeUnit.UnitSequnece(targetPosition);
             }
         }
 
         private void SetUnits(UiPrizeUnitController prizeUnit)
         {
-            var spawnRaidus = new Vector3(Random.Range(-spawnPrizeUnitConfig.SpawnUnitRadius, spawnPrizeUnitConfig.SpawnUnitRadius),
-                Random.Range(-spawnPrizeUnitConfig.SpawnUnitRadius, spawnPrizeUnitConfig.SpawnUnitRadius), 0);
+            var spawnRaidus = new Vector3(Random.Range(-spawnPrizeUnitConfigSo.SpawnUnitRadius, spawnPrizeUnitConfigSo.SpawnUnitRadius),
+                Random.Range(-spawnPrizeUnitConfigSo.SpawnUnitRadius, spawnPrizeUnitConfigSo.SpawnUnitRadius), 0);
 
             prizeUnit.transform.position = prizeSpawnPoint.position + spawnRaidus;
-            var targetPosition = SelectTargetPrizePosition(prizeUnit);
-            prizeUnit.UnitSequnece(targetPosition);
         }
 
         private UiPrizeUnitSo SelectPrizeUnitSo(UnitType unitType)

@@ -16,3 +16,5 @@ MonoBehaviour:
   <SlotYPosOffset>k__BackingField: 45
   <DesiredSlotCount>k__BackingField: 8
   <InitialRotationCount>k__BackingField: 3
+  <FortuneWheelRendererConfig>k__BackingField: {fileID: 11400000, guid: 52c2c04667f09c34b9bc542dea0267de,
+    type: 2}

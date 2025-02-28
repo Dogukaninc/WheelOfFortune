@@ -4,6 +4,7 @@ using System.Linq;
 using Assets._Main.Scripts.Utilities;
 using CaseDemo.Scripts.EffectControllers;
 using CaseDemo.Scripts.Pool;
+using CaseDemo.Scripts.SO_Classes;
 using UnityEngine;
 using Utilities;
 
@@ -12,10 +13,11 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
     public class CollectedPrizeHolderController : SingletonMonoBehaviour<CollectedPrizeHolderController>
     {
         [field: SerializeField] public List<UiCollectedPrizeDisplayElement> DisplayElements { get; private set; }
+        [field: SerializeField] public List<UiPrizeUnitSo> UiPrizeUnitSos { get; private set; }
 
         [SerializeField] private Transform elementsParent;
         [SerializeField] private float placementOffset;
-
+        
         private void OnEnable()
         {
             GeneralEvents.OnDisplayElementUpdated += UpdateElement;
@@ -41,7 +43,7 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
 
             displayElement.transform.SetParent(elementsParent);
             displayElement.transform.localScale = Vector3.one;
-            displayElement.InitializeElement(sprite, prizeAmount, unitType);
+            displayElement.InitializeElement(SelectRelativePrizeUnitSo(unitType), prizeAmount, unitType);
             displayElement.transform.position = DisplayElements[^1].transform.position + new Vector3(0, placementOffset, 0);
         }
 
@@ -52,7 +54,6 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
             {
                 if (displayElement != null)
                 {
-                    Debug.Log("Updated Element");
                     displayElement.UpdateElement(prizeAmount);
                 }
             }
@@ -61,6 +62,12 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
                 Debug.LogError($"Error updating element: {ex.Message}");
                 Debug.LogWarning("Element not found");
             }
+        }
+        
+        private Sprite SelectRelativePrizeUnitSo(UnitType unitType)
+        {
+            var prizeUnitSo = UiPrizeUnitSos.Find(prizeUnit => prizeUnit.UnitType == unitType);
+            return prizeUnitSo.UnitSprite;
         }
     }
 }

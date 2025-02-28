@@ -10,7 +10,6 @@ namespace CaseDemo.Scripts.SO_Classes
     {
         [field: PreviewField(100), SerializeField]
         public Sprite SlotIcon { get; private set; }
-
         [field: SerializeField] public int SlotRewardInfoValue { get; private set; }
         [field: InlineEditor, SerializeField] public PrizeCardSo PrizeCardSo { get; private set; }
         [field: SerializeField] public UnitType UnitType { get; private set; }

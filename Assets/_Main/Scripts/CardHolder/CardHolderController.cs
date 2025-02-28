@@ -49,6 +49,7 @@ namespace CaseDemo.Scripts.CardHolder
             sequence.Append(transform.DOMove(_intialCardPosition, cardMoveUpDuration).SetEase(Ease.OutQuad));
             sequence.AppendCallback(() => gameObject.SetActive(false));
             sequence.AppendCallback(() => GeneralEvents.OnUiPrizeCardCollected?.Invoke(unitType));
+            sequence.AppendCallback(() => GeneralEvents.OnZoneChange?.Invoke());
         }
     }
 }
