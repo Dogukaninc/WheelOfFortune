@@ -6,6 +6,7 @@ using CaseDemo.Scripts.EffectControllers;
 using CaseDemo.Scripts.Pool;
 using CaseDemo.Scripts.SO_Classes;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
@@ -18,16 +19,22 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
         [SerializeField] private Transform elementsParent;
         [SerializeField] private float placementOffset;
         
+        [Header("Leave Game Panel")]
+        [SerializeField] private Button exitButton;
+        [SerializeField] private GameObject leaveGamePanel;
+        
         private void OnEnable()
         {
             GeneralEvents.OnDisplayElementUpdated += UpdateElement;
             GeneralEvents.CallInitializeDisplayElement += SetNewPrizeDisplayElement;
+            exitButton.onClick.AddListener(SetExitButtonCondition);
         }
 
         private void OnDisable()
         {
             GeneralEvents.OnDisplayElementUpdated -= UpdateElement;
             GeneralEvents.CallInitializeDisplayElement -= SetNewPrizeDisplayElement;
+            exitButton.onClick.RemoveListener(SetExitButtonCondition);
         }
 
         public void SetNewPrizeDisplayElement(Sprite sprite, int prizeAmount, UnitType unitType)
@@ -69,5 +76,11 @@ namespace CaseDemo.Scripts.CollectedPrizeDisplayPanel
             var prizeUnitSo = UiPrizeUnitSos.Find(prizeUnit => prizeUnit.UnitType == unitType);
             return prizeUnitSo.UnitSprite;
         }
+
+        private void SetExitButtonCondition()
+        {
+            leaveGamePanel.gameObject.SetActive(true);
+        }
+        
     }
 }

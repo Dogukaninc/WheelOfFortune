@@ -61,6 +61,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42a09ba19880d69438f481d8b95ef824, type: 2}
   elementsParent: {fileID: 8399387539999358543}
   placementOffset: 20
+  exitButton: {fileID: 8399387540825894830}
+  leaveGamePanel: {fileID: 0}
 --- !u!1 &8399387539583889645
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

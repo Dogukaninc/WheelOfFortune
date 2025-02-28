@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ZoneText>k__BackingField: {fileID: 7701554905977142412}
   <ZoneImage>k__BackingField: {fileID: 5393627570901174222}
+  <ZoneType>k__BackingField: 0
   zoneTypeSo: {fileID: 11400000, guid: b42e4dc7f679f724bb4aa05d552df350, type: 2}
 --- !u!1 &8769602887572870537
 GameObject:
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
